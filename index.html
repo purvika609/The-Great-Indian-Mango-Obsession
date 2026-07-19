@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>The Great Indian Mango Obsession</title>
+    <script src="https://unpkg.com/intersection-observer@0.5.1/intersection-observer.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/scrollama/3.0.4/scrollama.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.3.0/d3.min.js"></script>
+
+    <!-- Google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap" 
+    rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" 
+    rel="stylesheet">
+    <style>
+    .with-image-bg {
+    position: relative;
+    background-size: cover;
+    margin-bottom: 2em;
+    min-height: 70svh;
+    background-image: url('header.jpg');
+    }
+        body {
+            margin: 0;
+            font-size: 20px;
+            font-family: 'Source Sans 3';
+            text-rendering: optimizeLegibility;
+        }
+
+        .content {
+            max-width: 640px;
+            margin: auto;
+        }
+
+        .header {
+            padding: 3em 0;
+        }
+
+        a {
+            font-family: 'Source Sans 3';
+            color: #ecb042;
+        }
+
+        .footer {
+            background: #f7f5eb;
+            text-align: center;
+            font-size: 0.8em;
+            margin-top: 4em;
+            padding: 4em 0;
+        }
+
+        figure {
+            margin: 0;
+            padding-bottom: 1.2em;
+        }
+
+        figcaption {
+            font-size: 0.8em;
+            text-align: left;
+            margin-bottom: 0.5em;
+            color: #666;
+        }
+
+        h1 {
+            font-family: 'Source Serif 4';
+            font-weight: 600 italic;
+            font-size: 3em;
+            line-height: 1.1;
+            color: #2B2B2B
+        }
+        h2{
+            font-family: 'Source Serif 4';
+            color: #3F3F3F;
+            font-size: 23px;
+            font-weight: medium;
+            line-height: 90%;
+            padding-top: 1em;
+            margin: 0.5em 0 0.5em 0;
+    
+        }
+
+        iframe,
+        img,
+        video {
+            max-width: 100%;
+        }
+
+        p {
+            font-family: 'Source Sans 3';
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 125%;
+            margin: 0;
+            padding-bottom: 1em;
+            color: #3F3F3F;
+        }
+        p.emphasis {
+            font-family: 'Source Sans 3';
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 125%;
+            margin: 0;
+            padding-bottom: 1em;
+            padding-top: 0.5em;
+            color: #3F3F3F;
+        }
+        p2 {
+            font-family: 'Source Sans 3';
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 125%;
+            margin: 0;
+            padding-bottom: 1em;
+            color: #3F3F3F;
+        }
+
+        ul {
+            margin: 0;
+            padding-bottom: 1em;
+            line-height: 1.6;
+        }
+
+        iframe {
+            padding-bottom: 1.2em;
+            color: #3F3F3F;
+
+        }
+
+        code {
+            font-family: 'Courier New', monospace;
+            background: #fffbaf;
+            font-size: 0.85em;
+        }
+
+        .full-width figure {
+            text-align: center;
+        }
+        .mango-full-width {
+        width: 100%;
+    }
+
+        /* margin on mobile */
+        @media (max-width: 640px) {
+            body {
+                font-size: 18px;
+            }
+
+            .content {
+                padding-left: 0.5em;
+                padding-right: 0.5em;
+            }
+        }
+        #scrolly {
+        position: relative;
+        padding: 1rem;
+      }
+
+      .scrolly-overlay {
+        position: relative;
+        padding: 0;
+        max-width: 35rem;
+        margin-left: 2px;
+        margin-right: auto;
+      }
+
+      .sticky-thing {
+        position: -webkit-sticky;
+        position: sticky;
+        left: 0;
+        width: 100%;
+        margin: 0;
+        z-index: 0;
+        top: 0;
+        height: 100vh;
+        /* Center everything inside */
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .step {
+        margin: 0 auto 2rem auto;
+        margin-bottom: 50rem;
+        background-color: #f9f7ef;
+        text-align: right;
+        border: 0.85px solid #b5b5b5;
+        border-radius: 1.5rem;
+      }
+
+      .step p {
+        padding: 1rem;
+        font-size: 18px;
+        line-height: 125%;
+        
+      }
+
+      #zoomBox {
+          overflow: clip;    
+          margin-left: 44vw !important;
+          max-width: 53vw !important;
+          max-height: none !important;
+      }
+      
+      .photoDiv {
+        width: 100%;
+        margin-right: 0px;
+        margin-left: auto;
+        display: block;
+        transition:
+          margin 1.5s 0s,
+          transform 2.5s 0s;
+      }
+
+      /* When it's less than 700 pixels wide, do normal scrollytelling */
+      @media only screen and (min-width: 700px) {
+        #scrolly.side-by-side {
+          display: flex;
+        }
+
+        #scrolly.side-by-side > div {
+          flex-basis: 0;
+          flex-grow: 1;
+          flex-shrink: 1;
+          padding: 0.75em;
+        }
+
+        #scrolly.side-by-side .scrolly-overlay {
+          margin-top: 70vh;
+          order: 0;
+          /* Change these to adjust sizing options */
+          min-width: 15rem;
+          max-width: 20rem;
+        }
+
+        #scrolly.side-by-side .sticky-thing {
+          order: 1;
+          flex-grow: 2;
+        }
+      }
+    </style>
+</head>
+
+<body>
+    <div class="header with-image-bg">
+</div>
+    <div class="content">
+        <div class="header">
+            <h1>The Great Indian Mango Obsession</h1>
+             <p class="emphasis">By <a href="https://purvikasharma.com">Purvika Sharma</a></p>
+            <p>Published on 01 July, 2026</p>
+            <p class="subhead">India doesn't just eat mangoes. We wait for them. We argue about them. We gift them. 
+                We remember summers because of them.</p>
+        <p>Every summer, India changes. Fruit stalls turn yellow. Families buy mangoes by the crate. People recommend "the best mango seller." Everyone suddenly is a mango expert.Because in India, mangoes aren't just fruit.</p>
+        <p class="emphasis">They're an obsession.</a></p>
+        <p>Those few months everyone loses their mind. Unlike bananas. Mangoes are seasonal. The seasonality creates anticipation. </p>
+        <p class="emphasis">SEASONAL AVAILABILITY</a></p>    
+        <img
+                src="frame2.png" alt="Visaulisation of mango and banana seasonality in India">
+            <h2>Meet the Mangoes</h2>
+            <p>Not all mangoes are created equal. Each one has its own flavour, texture, season and a fan following. I made a mango matrix to compare the ones I've had.</p>
+            </div> 
+             </div>     
+<div class="content">
+<p class="emphasis">MANGO MATRIX</a></p>
+</div>  
+<img
+    class="full-width"
+    src="chart.png" alt="Radial polar chart comparing different mangoes">
+        <div class="content">
+        <figcaption>Made with Flourish and Adobe Illustrator</figcaption>
+        <p>But this is just the tip of the iceberg. India has hundreds of mango varieties, each with a unique taste.
+            Across the country, hundreds of varieties thrive in different landscapes, each with its own flavour and texture.
+        </p>
+            <p class="emphasis">MANGO VARITIES ACROSS INDIA</a></p>
+    </div>
+    <div class="full-width">
+        <figure>
+            <img
+                src="mangoproduction.png" alt="Mango production by states in India 2025-26">
+
+        </figure>
+    </div>
+     <div class="content">
+        <p>Some states don't just grow great mangoes-they grow a lot of them. A handful of states account for most of the country's harvest.</p>
+            <p class="emphasis">MANGO PRODUCTION BY STATES FOR 2025-26 (In thousand metric tonnes)</a></p>
+     </div>
+    <div class="full-width">
+        <figure>
+            <img
+                src="mangoproduction.png" alt="Mango production by states in India 2025-26">
+
+        </figure>
+    </div>
+    <div class="content">
+    <figcaption>Source: Department of Agriculture and Farmers Welfare • Made with QGIS</figcaption>
+    </div>
+    
+        <section id="scrolly">
+        <div class="sticky-thing">
+          <div id="zoomBox">
+<!-- Sticky Thing 1 goes below this line -->
+
+            <img id="scrollyPhoto" class="photoDiv" src="worldmango-03.png">
+             <figcaption>Source: TradeImex • Made with Flourish and Adobe Illustrator</figcaption>
+<!-- Sticky Thing 1 goes above this line -->
+          </div>        
+        </div>
+
+        <div class="scrolly-overlay">
+          <div class="step" id="step1">
+            <p class="emphasis">The World's Mango Giant</a></p>
+            <p>India is the world's largest mango producer. In 2024, the country produced 26.3 million metric tonnes, almost as much as all the other top mango-producing countries combined.</p>
+          </div>
+          <div class="step" id="step2">
+            <p class="emphasis">Not all mangoes make it to the table</a></p>
+            <p>Losses add up at every stage of the journey - from harvesting and transportation to storage, wholesale markets, and retail shelves. By the time a mango reaches the table, a significant share has already been lost.</p>
+          </div>
+          <div class="step" id="step3">
+            <p class="emphasis">Almost everything stays home</p>
+            <p>Despite producing more mangoes than any other country, India exports only about 30,000 metric tonnes or 0.11% approx of its annual production. The rest is sold and consumed within the country because we simply can't get enough of mangoes.</p>
+          </div>
+        </div>
+      </section>
+    <div class="content">
+        <h2>Where do Indian Mangoes go?</h2>
+        <p>The small share that leaves India travels far. Indian mangoes make their way to markets across the world, with the United Arab Emirates, Nepal, Saudi Arabia, the United Kingdom, and the United States among the biggest importers.</p>
+        <p class="emphasis">MANGO EXPORTS FROM INDIA (In metric tonnes)</a></p>
+        <img
+            src="chart1.png" alt="Visualisation of Indian mango exports by country">
+         <figcaption>Source: Firstpost • Made with Flourish and Adobe Illustrator</figcaption>
+        <h2>Which mango is the best?</h2>
+        <p>Everyone has a favourite mango, but that favourite usually depends on where you grew up. The mangoes you ate as a child often become the benchmark for every mango that follows.</p>
+        <img
+                src="favemango.png" alt="An illustrative image of mango favourites">
+        
+        <p>Next time you have a mango, use this matrix to compare and evaluate different varieties.</p>
+            <p class="emphasis">THE MANGO MATRIX</a></p>
+        <img
+                src="matrix.png" alt="A mango matrix for the next time you try a mango">
+    </div>
+    <div class="footer">
+        <div class="content">
+        <p2>This project was created during <a href="https://ledeprogram.com">The Lede Program</a> at Columbia's Graduate School of Journalism.
+                You can find the github repo for this project <a href="https://github.com/purvika609/The-great-Indian-Mango-Obsession">here</a>.
+                purvikasharma[at]gmail[com]
+                when you use it, and don't forget to change the <code>title</code> tag!!!</p2>
+        </div>
+    </div>
+<script>
+    /* Scrollytelling code goes under here */
+
+  // Code for the Photo Div #1 (aka #scrollyPhoto1)
+    
+    // Entering Step One
+  d3.select("#step1").on('stepin',function(e) {
+    console.log("We've arrived at STEP ONE in the photo div")
+    d3.select("#scrollyPhoto").attr("src", "worldmango-03.png");
+    // d3.select("#scrollyPhoto").style("transform", "scale(2.9) translate(0%, -10%)");
+  })
+
+    // Entering Step Two
+    d3.select("#step2").on('stepin',function(e) {
+    console.log("We've arrived at STEP TWO in the photo div")
+    d3.select("#scrollyPhoto").attr("src", "worldmango-04.png");
+
+  })
+
+    // Entering Step Three
+    d3.select("#step3").on('stepin',function(e) {
+    console.log("We've arrived at STEP Three in the photo div")
+    d3.select("#scrollyPhoto").attr("src", "worldmango-05.png");
+  })
+</script>
+
+<!-- LEAVE ALONE, scrolly code goes in the section below -->
+<script>
+    const scroller = scrollama();
+
+	scroller
+		.setup({
+			step: "#scrolly .scrolly-overlay .step",
+			offset: 0.5,
+			debug: false
+		})
+		.onStepEnter(function({ element, index, direction}) {
+			const event = new CustomEvent('stepin', { detail: { direction: direction } })
+			element.dispatchEvent(event);
+		})
+		.onStepExit(function({ element, index, direction }) {
+			const event = new CustomEvent('stepout', { detail: { direction: direction } })
+			element.dispatchEvent(event);
+		});
+
+	window.addEventListener("resize", scroller.resize);
+    </script>
+
+
+<!-- mobile phone warning modal -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const isSmallScreen = window.innerWidth <= 900;
+
+    if (isSmallScreen) {
+      document.getElementById("deviceModal").style.display = "flex";
+    }
+
+    document
+      .getElementById("continueBtn")
+      .addEventListener("click", function () {
+        document.getElementById("deviceModal").style.display = "none";
+      });
+  });
+</script>
+
+  </body>
+</html>
