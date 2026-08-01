@@ -284,10 +284,10 @@
         <figure>
             <img
                 src="mangoproduction1.png" alt="Mango production by states in India 2025-26">
-
         </figure>
     </div>
      <div class="content">
+	<figcaption>Source: National Horticulture Board • Made with QGIS and Adobe Illustrator</figcaption>
         <p>Some states don't just grow great mangoes-they grow a lot of them. A handful of states account for most of the country's harvest.</p>
             <p class="emphasis">MANGO PRODUCTION BY STATES FOR 2025-26 (In thousand metric tonnes)</a></p>
      </div>
@@ -306,7 +306,7 @@
         <div class="sticky-thing">
           <div id="zoomBox">
 <!-- Sticky Thing 1 goes below this line -->
-
+			<p id="scrollyCaption" class="emphasis"></p>
             <img id="scrollyPhoto" class="photoDiv" src="worldmango-03.png">
              <figcaption>Source: TradeImex • Made with Flourish and Adobe Illustrator</figcaption>
 <!-- Sticky Thing 1 goes above this line -->
@@ -351,7 +351,7 @@
 				This project was created during <a href="https://ledeprogram.com">The Lede Program</a> at Columbia's Graduate School of Journalism.
                 You can find the github repo for this project <a href="https://github.com/purvika609/The-great-Indian-Mango-Obsession">here</a>.
                 purvikasharma[at]gmail[com]
-                <code>title</code> tag!!!</p2>
+                </p2>
         </div>
     </div>
 <script>
@@ -363,13 +363,14 @@
   d3.select("#step1").on('stepin',function(e) {
     console.log("We've arrived at STEP ONE in the photo div")
     d3.select("#scrollyPhoto").attr("src", "worldmango-03.png");
-    // d3.select("#scrollyPhoto").style("transform", "scale(2.9) translate(0%, -10%)");
+    d3.select("#scrollyCaption").text("MANGO PRODUCTION BY COUNTRIES IN 2024-2025 (IN MILLION METRIC TONNES)");
   })
 
     // Entering Step Two
     d3.select("#step2").on('stepin',function(e) {
     console.log("We've arrived at STEP TWO in the photo div")
     d3.select("#scrollyPhoto").attr("src", "worldmango-04.png");
+    d3.select("#scrollyCaption").text("MANGO WASTAGE WITHIN INDIA IN 2024-2025 (IN MILLION METRIC TONNES)");
 
   })
 
@@ -377,6 +378,7 @@
     d3.select("#step3").on('stepin',function(e) {
     console.log("We've arrived at STEP Three in the photo div")
     d3.select("#scrollyPhoto").attr("src", "worldmango-05.png");
+    d3.select("#scrollyCaption").text("MANGO EXPORT BY INDIA IN 2024-2025 (IN METRIC TONNES)");
   })
 </script>
 
